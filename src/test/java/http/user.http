@@ -1,0 +1,30 @@
+#GET http://localhost:8083/users
+#Accept: application/json
+
+
+#DELETE http://localhost:8083/users/9
+#Accept: application/json
+
+
+#POST http://localhost:8083/users
+#Content-Type: application/json
+#
+#{
+#   "name": "Leonid",
+#   "surname": "Alkhimenok",
+#   "email": "leonid.alkhimenok@gmail.com",
+#   "password": "leonid1111"
+#}
+
+
+#PUT http://localhost:8083/users/4
+#Content-Type: application/json
+#
+#{
+#   "iduser": 4,
+#   "name": "Kirill",
+#   "surname": "Alkhimenok",
+#   "email": "kirill.alkhimenok@gmail.com",
+#   "password": "kirill2001"
+#}
+
