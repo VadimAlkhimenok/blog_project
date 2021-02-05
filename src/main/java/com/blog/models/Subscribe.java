@@ -8,8 +8,7 @@ public class Subscribe {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idsubscribe;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idauthor")
+    @ManyToOne
     private User idauthor;
 
     public Subscribe() {}

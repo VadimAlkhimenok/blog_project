@@ -13,8 +13,7 @@ public class Post {
     private String description;
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_iduser")
+    @ManyToOne
     private User author;
 
     public Post() {}

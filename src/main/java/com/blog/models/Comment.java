@@ -12,12 +12,10 @@ public class Comment {
     private String description;
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_iduser")
+    @ManyToOne
     private User iduser;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_idpost")
+    @ManyToOne
     private Post idpost;
 
     public Comment() {}

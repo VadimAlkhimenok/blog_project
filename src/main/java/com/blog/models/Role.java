@@ -1,9 +1,7 @@
 package com.blog.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
@@ -12,6 +10,9 @@ public class Role {
     private Integer idrole;
 
     private String rolename;
+
+    @ManyToMany(targetEntity = User.class)
+    private Set users;
 
     public Role() {}
 
