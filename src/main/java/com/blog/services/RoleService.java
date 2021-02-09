@@ -1,7 +1,7 @@
 package com.blog.services;
 
-import com.blog.models.User;
+import com.blog.models.Role;
 
 public interface RoleService {
-    User getUserById(Integer id);
+    Role getByRole(String rolename);
 }

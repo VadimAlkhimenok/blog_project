@@ -11,8 +11,8 @@ public class Role {
 
     private String rolename;
 
-    @ManyToMany(targetEntity = User.class)
-    private Set users;
+    @ManyToMany(targetEntity = User.class, mappedBy = "roles")
+    private Set<User> users;
 
     public Role() {}
 
@@ -29,11 +29,21 @@ public class Role {
         this.idrole = idrole;
     }
 
+    @Column(name = "rolename")
     public String getRolename() {
         return rolename;
     }
 
     public void setRolename(String rolename) {
         this.rolename = rolename;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "idrole=" + idrole +
+                ", rolename='" + rolename + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

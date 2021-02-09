@@ -1,5 +1,7 @@
 package com.blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,19 +14,17 @@ public class Comment {
     private String description;
     private Date date;
 
+    @JsonIgnore
     @ManyToOne
-    private User iduser;
-
-    @ManyToOne
+    @JoinColumn(name = "post_idpost")
     private Post idpost;
 
     public Comment() {}
 
-    public Comment(Integer idcomment, String description, Date date, User iduser, Post idpost) {
+    public Comment(Integer idcomment, String description, Date date, Post idpost) {
         this.idcomment = idcomment;
         this.description = description;
         this.date = date;
-        this.iduser = iduser;
         this.idpost = idpost;
     }
 
@@ -50,14 +50,6 @@ public class Comment {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public User getIduser() {
-        return iduser;
-    }
-
-    public void setIduser(User iduser) {
-        this.iduser = iduser;
     }
 
     public Post getIdpost() {

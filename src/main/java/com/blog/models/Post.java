@@ -1,20 +1,30 @@
 package com.blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "post")
 public class Post {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idpost;
 
     private String title;
     private String description;
     private Date date;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_iduser", insertable = false, updatable = false)
     private User author;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idpost")
+    private Set<Comment> comments = new HashSet<>();
 
     public Post() {}
 
@@ -24,6 +34,14 @@ public class Post {
         this.description = description;
         this.date = date;
         this.author = author;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public Integer getIdpost() {
