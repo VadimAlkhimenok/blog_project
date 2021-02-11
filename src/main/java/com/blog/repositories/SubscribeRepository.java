@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
-    List<Subscribe> getBySubscriber_Iduser(int id);
+    List<Subscribe> getSubscribeById(int id);
 }

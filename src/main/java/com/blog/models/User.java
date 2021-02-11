@@ -9,75 +9,73 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer iduser;
+    @Column(name = "iduser")
+    private int id;
 
-    private String name;
-    private String surname;
+    @Column(name = "name")
+    private String userName;
+
+    @Column(name = "surname")
+    private String surName;
+
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @Column(name = "active")
+    private boolean active;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Post> posts = new HashSet<>();
 
-    @ManyToMany(targetEntity = Role.class)
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinTable(name = "role_users",
             joinColumns = @JoinColumn(name = "users_iduser"),
             inverseJoinColumns = @JoinColumn(name = "role_idrole")
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Subscribe> subscribes = new HashSet<>();
 
-    public User(Integer iduser, String name, String surname, String email, String password) {
-        this.iduser = iduser;
-        this.name = name;
-        this.surname = surname;
+    public User(int id, String userName, String surName, String email, String password, boolean active, Set<Post> posts, Set<Role> roles, Set<Subscribe> subscribes) {
+        this.id = id;
+        this.userName = userName;
+        this.surName = surName;
         this.email = email;
         this.password = password;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<Post> posts) {
+        this.active = active;
         this.posts = posts;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
         this.roles = roles;
+        this.subscribes = subscribes;
     }
 
     public User() {}
 
-    public Integer getIduser() {
-        return iduser;
+    public int getId() {
+        return id;
     }
 
-    public void setIduser(Integer iduser) {
-        this.iduser = iduser;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
     public String getEmail() {
@@ -96,11 +94,50 @@ public class User {
         this.password = password;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public Set<Subscribe> getSubscribes() {
         return subscribes;
     }
 
     public void setSubscribes(Set<Subscribe> subscribes) {
         this.subscribes = subscribes;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", surName='" + surName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", posts=" + posts +
+                ", roles=" + roles +
+                ", subscribes=" + subscribes +
+                '}';
     }
 }

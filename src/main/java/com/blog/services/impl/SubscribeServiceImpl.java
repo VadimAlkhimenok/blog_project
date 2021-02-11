@@ -16,17 +16,17 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     @Override
     public List<Subscribe> getSubscribers(int idAuthor) {
-        return subscribeRepository.getBySubscriber_Iduser(idAuthor);
+        return subscribeRepository.getSubscribeById(idAuthor);
     }
 
     @Override
     public Subscribe createSubscribe(int subscriber, int author) {
         Subscribe subscribe = new Subscribe();
         User reader = new User();
-        reader.setIduser(subscriber);
+        reader.setId(subscriber);
 
         User authorId = new User();
-        authorId.setIduser(author);
+        authorId.setId(author);
 
         subscribe.setSubscriber(authorId);
         subscribe.setSubscriber(reader);

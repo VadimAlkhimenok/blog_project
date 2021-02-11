@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(int id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -28,4 +28,5 @@ public class UserServiceImpl implements UserService {
         Role byRole = roleService.getByRole(role);
         return userRepository.getUserByRoles(byRole);
     }
+
 }
