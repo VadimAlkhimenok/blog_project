@@ -1,7 +1,11 @@
 package com.blog.models;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,19 +17,28 @@ public class User {
     private int id;
 
     @Column(name = "name")
-    private String userName;
+    @JsonProperty("firstName")
+    private String firstName;
 
     @Column(name = "surname")
-    private String surName;
+    @JsonProperty("lastName")
+    private String lastName;
+
+    @Column(name = "username")
+    @JsonProperty("username")
+    private String userName;
 
     @Column(name = "email")
+    @JsonProperty("email")
     private String email;
 
     @Column(name = "password")
+    @JsonProperty("password")
     private String password;
 
-    @Column(name = "active")
-    private boolean active;
+    @Column(name = "biography")
+    @JsonProperty("biography")
+    private String biography;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Post> posts = new HashSet<>();
@@ -35,24 +48,25 @@ public class User {
             joinColumns = @JoinColumn(name = "users_iduser"),
             inverseJoinColumns = @JoinColumn(name = "role_idrole")
     )
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Subscribe> subscribes = new HashSet<>();
 
-    public User(int id, String userName, String surName, String email, String password, boolean active, Set<Post> posts, Set<Role> roles, Set<Subscribe> subscribes) {
+    public User() {}
+
+    public User(int id, String firstName, String lastName, String userName, String email, String password, String biography, Set<Post> posts, List<Role> roles, Set<Subscribe> subscribes) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userName = userName;
-        this.surName = surName;
         this.email = email;
         this.password = password;
-        this.active = active;
+        this.biography = biography;
         this.posts = posts;
         this.roles = roles;
         this.subscribes = subscribes;
     }
-
-    public User() {}
 
     public int getId() {
         return id;
@@ -62,20 +76,28 @@ public class User {
         this.id = id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getSurName() {
-        return surName;
-    }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
     }
 
     public String getEmail() {
@@ -94,12 +116,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getBiography() {
+        return biography;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
     public Set<Post> getPosts() {
@@ -110,11 +132,11 @@ public class User {
         this.posts = posts;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -130,11 +152,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
-                ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", active=" + active +
+                ", biography='" + biography + '\'' +
                 ", posts=" + posts +
                 ", roles=" + roles +
                 ", subscribes=" + subscribes +

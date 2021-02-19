@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Subscribe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Integer id;
 
     @OneToOne
